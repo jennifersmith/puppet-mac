@@ -33,7 +33,12 @@ class basic {
   dotdir{"bash":}
   class {'weirdassvim':}
   class {'rvm::system': user=>$username}  
-  	
+ 
+  # treating homebrew as an exec... who package manages the package managers?
+  exec {
+        '/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"':
+        creates => '/usr/local/bin/brew'}
+ 	
   package {'emacs': 
                     provider=>homebrew,
 										ensure=>HEAD,
