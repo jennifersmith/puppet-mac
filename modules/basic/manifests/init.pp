@@ -1,38 +1,49 @@
 # Bin folder from git
 class basic {
-  notice("using user ${username}")
-  $root_folder = "/Users/${username}"
-      vcsrepo { "${basic::root_folder}/bin/":
-        ensure => present,
-        provider => git,
-        source => "git@github.com:jennifersmith/misc.git"
-  } 
+ 
+ define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith){
+    notice("we shall be using git@github.com:${github_user}/${repo_name}.git")
+    vcsrepo { "${path}${name}/":
+      ensure => present,
+      provider => git,
+      source => "git@github.com:${github_user}/${repo_name}.git"
+    } 
+  }  
   
+  github {"bin": path => $::user_homedir , repo_name=>misc}
+ 
+  #dev ones use the defaults apart from rapidftr 
+  github {["wire_tap"]:}
+  
+  github {"rapidftr/dev": repo_name => RapidFTR}
+  github {"rapidftr/merge": repo_name => RapidFTR, github_user => jorgej}
+ 
+
   define dotfile(){
-   file { "${basic::root_folder}/.${name}":
+   file { "${::user_homedir}.${name}":
        ensure => link,
-           target => "${basic::root_folder}/bin/dotfiles/${name}",
+           target => "${::user_homedir}bin/dotfiles/${name}",
     }
   }
 
   define dotdir(){
-     file { "${basic::root_folder}/.${name}":
+     file { "${::user_homedir}/.${name}":
        ensure => link,
-           target => "${basic::root_folder}/bin/dotfiles/${name}/",
+           target => "${::user_homedir}bin/dotfiles/${name}/",
     }
   }
 
   class weirdassvim {
-   file { "${basic::root_folder}/.vim":
+   file { "${::user_homedir}/.vim":
        ensure => link,
-           target => "${basic::root_folder}/bin/dotfiles/vim/vim",
+           target => "${::user_homedir}bin/dotfiles/vim/vim",
     }
   }
 
   dotfile {["bash_profile", "bashrc" , "gemrc", "gitconfig", "gvimrc", "util", "vimrc"]:}
   dotdir{"bash":}
   class {'weirdassvim':}
-  class {'rvm::system': user=>$username}  
+  class {'rvm::system': homedir=>$::user_homedir }  
  
   # treating homebrew as an exec... who package manages the package managers?
   exec {
