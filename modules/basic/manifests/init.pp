@@ -2,30 +2,30 @@
 class basic {
   notice("using user ${username}")
   $root_folder = "/Users/${username}"
-      vcsrepo { "${root_folder}/bin/":
+      vcsrepo { "${basic::root_folder}/bin/":
         ensure => present,
         provider => git,
         source => "git@github.com:jennifersmith/misc.git"
   } 
   
   define dotfile(){
-   file { "${root_folder}/.${name}":
+   file { "${basic::root_folder}/.${name}":
        ensure => link,
-           target => "${root_folder}/bin/dotfiles/${name}",
+           target => "${basic::root_folder}/bin/dotfiles/${name}",
     }
   }
 
   define dotdir(){
-     file { "${root_folder}/.${name}":
+     file { "${basic::root_folder}/.${name}":
        ensure => link,
-           target => "${root_folder}/bin/dotfiles/${name}/",
+           target => "${basic::root_folder}/bin/dotfiles/${name}/",
     }
   }
 
   class weirdassvim {
-   file { "${root_folder}/.vim":
+   file { "${basic::root_folder}/.vim":
        ensure => link,
-           target => "${root_folder}/bin/dotfiles/vim/vim",
+           target => "${basic::root_folder}/bin/dotfiles/vim/vim",
     }
   }
 
@@ -33,4 +33,11 @@ class basic {
   dotdir{"bash":}
   class {'weirdassvim':}
   class {'rvm::system': user=>$username}  
+  	
+  package {'emacs': 
+                    provider=>homebrew,
+										ensure=>HEAD,
+                    install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
+          }
+
 }

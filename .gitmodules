@@ -4,3 +4,6 @@
 [submodule "modules/rvm"]
 	path = modules/rvm
 	url = https://github.com/jennifersmith/puppet-rvm.git
+[submodule "modules/homebrew"]
+	path = modules/homebrew
+	url = git@github.com:jennifersmith/puppet-homebrew.git 
