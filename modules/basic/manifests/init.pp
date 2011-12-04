@@ -32,4 +32,5 @@ class basic {
   dotfile {["bash_profile", "bashrc" , "gemrc", "gitconfig", "gvimrc", "util", "vimrc"]:}
   dotdir{"bash":}
   class {'weirdassvim':}
+  class {'rvm::system': user=>$username}  
 }
