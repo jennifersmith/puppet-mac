@@ -2,7 +2,6 @@
 class basic {
  
  define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith){
-    notice("we shall be using git@github.com:${github_user}/${repo_name}.git")
     vcsrepo { "${path}${name}/":
       ensure => present,
       provider => git,
@@ -11,6 +10,7 @@ class basic {
   }  
   
   github {"bin": path => $::user_homedir , repo_name=>misc}
+  github {".emacs.d": path => $::user_homedir, repo_name=>"emacs-starter-kit", github_user => technomancy}
  
   #dev ones use the defaults apart from rapidftr 
   github {["wire_tap"]:}
