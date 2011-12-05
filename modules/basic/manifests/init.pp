@@ -3,7 +3,7 @@ class basic {
  
  define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith){
     vcsrepo { "${path}${name}/":
-      ensure => present,
+      ensure => latest,
       provider => git,
       source => "git@github.com:${github_user}/${repo_name}.git"
     } 
