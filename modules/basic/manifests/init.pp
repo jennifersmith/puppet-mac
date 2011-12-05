@@ -1,4 +1,3 @@
-# Bin folder from git
 class basic {
  
  define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith){
@@ -54,5 +53,13 @@ class basic {
     ensure=>HEAD,
     install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
   }
+
+  package {'leiningen': provider=>homebrew}
+
+  exec {
+    '/bin/sh lein plugin install swank-clojure 1.3.3':
+      unless => '/bin/sh lein | grep jack',
+      require => Package['leiningen']
+    }
 }
 
