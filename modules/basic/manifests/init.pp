@@ -10,7 +10,6 @@ class basic {
   }  
   
   github {"bin": path => $::user_homedir , repo_name=>misc}
-  github {".emacs.d": path => $::user_homedir, repo_name=>"emacs-starter-kit", github_user => technomancy}
  
   #dev ones use the defaults apart from rapidftr 
   github {["wire_tap"]:}
@@ -41,7 +40,7 @@ class basic {
   }
 
   dotfile {["bash_profile", "bashrc" , "gemrc", "gitconfig", "gvimrc", "util", "vimrc"]:}
-  dotdir{"bash":}
+  dotdir{["bash", "emacs.d"]:}
   class {'weirdassvim':}
   class {'rvm::system': homedir=>$::user_homedir }  
  
