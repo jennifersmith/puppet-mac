@@ -49,10 +49,10 @@ class basic {
         '/usr/bin/ruby -e "$(curl -fsSL https://raw.github.com/gist/323731)"':
         creates => '/usr/local/bin/brew'}
  	
-  package {'emacs': 
-                    provider=>homebrew,
-										ensure=>HEAD,
-                    install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
-          }
-
+  package {'emacs':
+    provider=>homebrew,
+    ensure=>HEAD,
+    install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
+  }
 }
+
