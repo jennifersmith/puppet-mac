@@ -6,8 +6,15 @@ class basic {
       provider => git,
       source => "git@github.com:${github_user}/${repo_name}.git"
     } 
-  }  
-  
+  }
+
+  define dropbox-git  ($path = "${::user_homedir}dev/", $repo_path="${::user_homedir}Dropbox/git/${name}.git" ){
+    vcsrepo { "${path}${name}/":
+      ensure => latest,
+      provider => git,
+      source => "$repo_path"
+    } 
+  }
   github {"bin": path => $::user_homedir , repo_name=>misc}
  
   #dev ones use the defaults apart from rapidftr 
@@ -15,7 +22,8 @@ class basic {
   
   github {"rapidftr/dev": repo_name => RapidFTR}
   github {"rapidftr/merge": repo_name => RapidFTR, github_user => jorgej}
- 
+
+  dropbox-git {"mingle-stats" :}
 
   define dotfile(){
    file { "${::user_homedir}.${name}":
