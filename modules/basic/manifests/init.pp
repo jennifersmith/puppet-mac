@@ -61,9 +61,11 @@ class basic {
     ensure=>HEAD,
     install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
   }
-
+  
   package {'leiningen': provider=>homebrew}
 
+  package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
+  
   exec {
     '/bin/sh lein plugin install swank-clojure 1.3.3':
       unless => '/bin/sh lein | grep jack',
