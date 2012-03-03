@@ -23,7 +23,7 @@ class basic {
   github {"rapidftr/dev": repo_name => RapidFTR}
   github {"rapidftr/merge": repo_name => RapidFTR, github_user => jorgej}
 
-  dropbox-git {"mingle-stats" :}
+  github {"mingle-stats" :}
 
   define dotfile(){
    file { "${::user_homedir}.${name}":
