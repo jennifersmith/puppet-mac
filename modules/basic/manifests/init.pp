@@ -18,7 +18,7 @@ class basic {
   github {"bin": path => $::user_homedir , repo_name=>misc}
  
   #dev ones use the defaults apart from rapidftr 
-  github {["wire_tap", "4clojure_answers", "myblog"]:}
+  github {["flickr-clojure", "flickr-facebook-clj", "wire_tap", "4clojure_answers", "myblog"]:}
   
   github {"rapidftr/dev": repo_name => RapidFTR}
   github {"rapidftr/merge": repo_name => RapidFTR, github_user => jorgej}
@@ -63,7 +63,7 @@ class basic {
   }
   
   package {'leiningen': provider=>homebrew}
-
+package {'ack': provider=>homebrew}
   package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
 
   package { 'gist' : provider=>homebrew}
