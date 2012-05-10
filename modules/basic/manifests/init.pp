@@ -16,9 +16,11 @@ class basic {
     } 
   }
   github {"bin": path => $::user_homedir , repo_name=>misc}
- 
+
+  github {"bin/private-settings": path =>"${::user_homedir}/bin", repo_name=>"private-settings", require=>Github["bin"]}
+  
   #dev ones use the defaults apart from rapidftr 
-  github {["flickr-clojure", "flickr-facebook-clj", "wire_tap", "4clojure_answers", "myblog"]:}
+  github {["wire_tap", "4clojure_answers", "myblog", "plasma", "photo-management","flickr-clojure", "flickr-facebook-clj"]:}
   
   github {"rapidftr/dev": repo_name => RapidFTR}
   github {"rapidftr/merge": repo_name => RapidFTR, github_user => jorgej}
