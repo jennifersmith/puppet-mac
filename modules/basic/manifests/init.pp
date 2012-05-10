@@ -63,8 +63,25 @@ class basic {
     ensure=>HEAD,
     install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
   }
-# TODO : wanted latest version so manually installed (curl) 
-#  package {'leiningen': provider=>homebrew}
+
+#dumb!!
+
+exec{"lein-install":
+  command => "${::user_homedir}bin/lein",
+  refreshonly => true}
+
+exec{"lein-permissions":
+  command => "/bin/chmod 755  ${::user_homedir}bin/lein",
+  refreshonly => true,
+  notify => Exec["lein-install"]}
+
+
+exec{"lein":
+  command =>"/usr/bin/curl https://raw.github.com/technomancy/leiningen/stable/bin/lein >> ${::user_homedir}bin/lein",
+  creates => "${::user_homedir}bin/lein",
+  notify => Exec["lein-permissions"]}
+
+
 package {'ack': provider=>homebrew}
   package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
 
@@ -72,7 +89,7 @@ package {'ack': provider=>homebrew}
   exec {
     '/bin/sh lein plugin install swank-clojure 1.3.3':
       unless => '/bin/sh lein | grep jack',
-      require => Package['leiningen']
+      require => Exec['lein']
     }
 }
 
