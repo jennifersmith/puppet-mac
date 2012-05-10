@@ -63,8 +63,8 @@ class basic {
     ensure=>HEAD,
     install_options=> { flags => "--cocoa --use-git-head --HEAD"} 
   }
-  
-  package {'leiningen': provider=>homebrew}
+# TODO : wanted latest version so manually installed (curl) 
+#  package {'leiningen': provider=>homebrew}
 package {'ack': provider=>homebrew}
   package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
 
