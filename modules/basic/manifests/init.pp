@@ -63,7 +63,7 @@ class basic {
     ensure=>HEAD,
     install_options=> { flags => "--cocoa --use-git-head --HEAD"} }
 
-  class{"leiningen":}
+  class{"leiningen": require => Dotdir["lein"]}
 
 
 package {'ack': provider=>homebrew}
