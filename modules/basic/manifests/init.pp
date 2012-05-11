@@ -49,7 +49,7 @@ class basic {
   }
 
   dotfile {["bash_profile", "bashrc" , "gemrc", "gitconfig", "gvimrc", "util", "vimrc"]:}
-  dotdir{["bash", "emacs.d"]:}
+  dotdir {["lein", "bash", "emacs.d"]:}
   class {'weirdassvim':}
   class {'rvm::system': homedir=>$::user_homedir }  
  
