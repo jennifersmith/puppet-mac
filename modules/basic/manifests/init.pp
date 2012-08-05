@@ -71,10 +71,10 @@ class basic {
   class{"leiningen": require => Dotdir["lein"]}
 
 
-
-package {'wget': provider=>homebrew}
-package {'ack': provider=>homebrew}
-package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
+  package{ 'aspell' : provider=>homebrew, install_options =>{lang=>'eng'}}
+  package {'wget': provider=>homebrew}
+  package {'ack': provider=>homebrew}
+  package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
 
 package { 'gist' : provider=>homebrew}
 
