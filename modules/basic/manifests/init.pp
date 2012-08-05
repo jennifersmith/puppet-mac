@@ -30,7 +30,13 @@ class basic {
 
   # bbatsov emacs prelude
   github {"emacs.d": github_user => bbatsov, repo_name => prelude, path => "${::user_homedir}/bin/dotfiles/", require=>Github["bin"], ensure=>latest}
-  
+  # personal files symlinked in
+  file {"${::user_homedir}/bin/dotfiles/emacs.d/personal":
+    ensure => link,
+    target => "${::user_homedir}bin/dotfiles/prelude-personal",
+    require => Github["emacs.d"],
+    force => true
+  }
   define dotfile(){
    file { "${::user_homedir}.${name}":
        ensure => link,
