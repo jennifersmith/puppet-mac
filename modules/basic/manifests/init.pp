@@ -74,6 +74,7 @@ class basic {
 
 
 
+package {'wget': provider=>homebrew}
 package {'ack': provider=>homebrew}
 package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
 
