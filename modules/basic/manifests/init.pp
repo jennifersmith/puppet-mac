@@ -7,24 +7,18 @@ class basic {
       }
  }
                 
- define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith){
+ 
+ define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith, $ensure = present){
     vcsrepo { "${path}${name}/":
-      ensure => latest,
+      ensure => $ensure,
       provider => git,
       source => "git@github.com:${github_user}/${repo_name}.git"
     } 
   }
 
-  define dropbox-git  ($path = "${::user_homedir}dev/", $repo_path="${::user_homedir}Dropbox/git/${name}.git" ){
-    vcsrepo { "${path}${name}/":
-      ensure => latest,
-      provider => git,
-      source => "$repo_path"
-    } 
-  }
-  github {"bin": path => $::user_homedir , repo_name=>misc}
+  github {"bin": path => $::user_homedir , repo_name=>misc, ensure=>latest}
 
-  github {"bin/private-settings": path =>"${::user_homedir}/bin", repo_name=>"private-settings", require=>Github["bin"]}
+  github {"private-settings": path =>"${::user_homedir}/bin/", require=>Github["bin"], ensure=>latest}
   
   #dev ones use the defaults apart from rapidftr 
   github {["wire_tap", "4clojure_answers", "myblog", "plasma", "photo-management","flickr-clojure", "flickr-facebook-clj"]:}
@@ -34,6 +28,9 @@ class basic {
 
   github {"mingle-stats" :}
 
+  # bbatsov emacs prelude
+  github {"emacs.d": github_user => bbatsov, repo_name => prelude, path => "${::user_homedir}/bin/dotfiles/", require=>Github["bin"], ensure=>latest}
+  
   define dotfile(){
    file { "${::user_homedir}.${name}":
        ensure => link,
@@ -59,6 +56,7 @@ class basic {
   dotdir {["lein", "bash", "emacs.d"]:}
   class {'weirdassvim':}
   class {'rvm::system': homedir=>$::user_homedir }  
+
  
   # treating homebrew as an exec... who package manages the package managers?
   exec {
