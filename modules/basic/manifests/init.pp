@@ -1,12 +1,4 @@
-class basic {
- define leinplugin($version, $plugin_name = $name) {
-    exec {"install-lein-plugin-${plugin_name}":
-           command=>'/bin/sh lein plugin install ${name} ${version}',
-           unless => '/bin/sh ls ${::user_homedir}/.lein/plugins | grep ${name}-${version}.jar',
-           require => Class['leiningen']
-      }
- }
-                
+class basic {               
  
  define github ($path = "${::user_homedir}dev/", $repo_name = $name, $github_user = jennifersmith, $ensure = present){
     vcsrepo { "${path}${name}/":
@@ -83,9 +75,6 @@ class basic {
   package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
 
 package { 'gist' : provider=>homebrew}
-
-leinplugin {"swank-clojure": version=>"1.3.3"}
-leinplugin {"lein-noir": version=>"1.2.1"}
 
 }
 

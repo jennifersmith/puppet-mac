@@ -37,12 +37,8 @@
 #
 
  class leiningen {
+  
    file { "${::user_homedir}bin/lein":
-      source  => "puppet:///modules/leiningen/lein",
-      owner   => $::user_name,
-      mode    => "755"
-   }
-   file { "${::user_homedir}bin/lein2":
       source  => "puppet:///modules/leiningen/lein2",
       owner   => $::user_name,
       mode    => "755"
