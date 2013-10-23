@@ -4,13 +4,7 @@ MANUAL STUFF
 
 - install xcode 
 - install homebrew and then git (todo: puppet homebrew and find a non-git way of pulling the repo first time)
-- install emacs - just cancel when it is doing it (run with debug flag) and do it manually... for some reason ignoring the flags and just installing v 23 when I required head
-- install java - on lion, for some reason you can just type in java and it figures it out
+- install emacs: http://emacsformacosx.com/
+- install java 
 
-TODO
-
-- More git repos prob should be in
-- Split things out : bin/dotfiles, dev projects, other crap
-- Lein jack in plugin
-- leinigen
 
