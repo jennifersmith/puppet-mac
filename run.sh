@@ -1,1 +1,1 @@
-puppet apply --debug --verbose --modulepath=$(pwd)/modules manifests/mba.pp
+puppet apply --modulepath=$(pwd)/modules manifests/mba.pp
