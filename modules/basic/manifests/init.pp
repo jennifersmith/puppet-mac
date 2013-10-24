@@ -13,11 +13,10 @@ class basic {
   github {"bin": path => $::user_homedir , repo_name=>misc, ensure=>latest}
 
   github {"private-settings": path =>"${::user_homedir}/bin/", require=>Github["bin"], ensure=>latest}
-  github {"otfrom-org-emacs": path =>"${::user_homedir}/.emacs.d/", ensure=>latest}  
+  github {".emacs.d": path =>$::user_homedir, repo_name=>"otfrom-org-emacs", ensure=>latest}  
 
-  github {["janus", "puppet", "myblog", "flocky", "janus-generators"]:}
+  github {["janus", "puppet-mac", "myblog", "flocky", "janus-generators"]:}
   
-  # bbatsov emacs prelude
 
   define dotfile(){
    file { "${::user_homedir}.${name}":
@@ -56,13 +55,13 @@ class basic {
 
   package{ 'aspell' : provider=>homebrew, install_options =>{lang=>'eng'}}
   package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
+  package {'postgresql' : provider=>homebrew, install_options=>{flags=>'--no-tcl'}}
 
 package { ["ack",
 "gist",
 "git",
 "glib",
 "gnupg",
-"postgresql",
 "python",
 "readline",
 "s3cmd",
