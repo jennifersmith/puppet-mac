@@ -39,7 +39,7 @@ class basic {
     }
   }
 
-  dotfile {["bash_profile", "bashrc" , "gemrc", "gitconfig", "gvimrc", "util", "vimrc" "aspell.en.pws"]:}
+  dotfile {["bash_profile", "bashrc" , "gemrc", "gitconfig", "gvimrc", "util", "vimrc", "aspell.en.pws"]:}
   dotdir {["lein", "bash"]:}
   class {'weirdassvim':}
   class {'rvm::system': homedir=>$::user_homedir }  
@@ -53,7 +53,7 @@ class basic {
   class{"leiningen": require => Dotdir["lein"]}
 
 
-  package{ 'aspell' : provider=>homebrew, install_options =>{lang=>'eng'}}
+  package{ 'aspell' : provider=>homebrew, install_options =>{lang=>'en'}}
   package {'llvm' : provider=>homebrew, install_options=>{flags=>'--universal'}}
   package {'postgresql' : provider=>homebrew, install_options=>{flags=>'--no-tcl'}}
 
@@ -65,6 +65,7 @@ package { ["ack",
 "python",
 "readline",
 "s3cmd",
+"markdown",
 "wget"] :}
 
 }
